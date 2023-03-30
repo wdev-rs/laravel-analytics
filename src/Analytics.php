@@ -5,9 +5,9 @@ namespace WdevRs\LaravelAnalytics;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \WdevRs\LaravelAnalytics\Skeleton\SkeletonClass
+ * @see \WdevRs\LaravelAnalytics\LaravelAnalytics
  */
-class LaravelAnalyticsFacade extends Facade
+class Analytics extends Facade
 {
     /**
      * Get the registered name of the component.

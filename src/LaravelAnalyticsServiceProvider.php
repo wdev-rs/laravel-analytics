@@ -16,12 +16,12 @@ class LaravelAnalyticsServiceProvider extends ServiceProvider
          */
         // $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'laravel-analytics');
         // $this->loadViewsFrom(__DIR__.'/../resources/views', 'laravel-analytics');
-        // $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
-        // $this->loadRoutesFrom(__DIR__.'/routes.php');
+         $this->loadMigrationsFrom(__DIR__.'/../database/migrations');
+//         $this->loadRoutesFrom(__DIR__.'/routes.php');
 
         if ($this->app->runningInConsole()) {
             $this->publishes([
-                __DIR__.'/../config/config.php' => config_path('laravel-analytics.php'),
+                __DIR__.'/../config/laravel-analytics.php' => config_path('laravel-analytics.php'),
             ], 'config');
 
             // Publishing the views.
@@ -50,7 +50,7 @@ class LaravelAnalyticsServiceProvider extends ServiceProvider
     public function register()
     {
         // Automatically apply the package configuration
-        $this->mergeConfigFrom(__DIR__.'/../config/config.php', 'laravel-analytics');
+        $this->mergeConfigFrom(__DIR__.'/../config/laravel-analytics.php', 'laravel-analytics');
 
         // Register the main class to use with the facade
         $this->app->singleton('laravel-analytics', function () {
