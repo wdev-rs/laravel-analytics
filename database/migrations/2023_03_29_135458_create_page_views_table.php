@@ -25,9 +25,10 @@ return new class() extends Migration
             $table->string('city')->nullable();
             $table->string('page_model_type')->nullable();
             $table->string('page_model_id')->nullable();
-            $table->timestamps();
+            $table->timestamp('created_at')->nullable()->index();
+            $table->timestamp('updated_at')->nullable();
 
-            $table->index(['model_type', 'model_id']);
+            $table->index(['page_model_type', 'page_model_id']);
         });
     }
 

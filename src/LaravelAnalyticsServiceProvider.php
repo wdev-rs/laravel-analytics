@@ -25,9 +25,9 @@ class LaravelAnalyticsServiceProvider extends ServiceProvider
             ], 'config');
 
             // Publishing the views.
-            /*$this->publishes([
-                __DIR__.'/../resources/views' => resource_path('views/vendor/laravel-analytics'),
-            ], 'views');*/
+            $this->publishes([
+                __DIR__.'/../resources/js/components' => resource_path('js/vendor/laravel-analytics/components'),
+            ], 'components');
 
             // Publishing assets.
             /*$this->publishes([

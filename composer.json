@@ -30,7 +30,9 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "WdevRs\\LaravelAnalytics\\Tests\\": "tests"
+            "WdevRs\\LaravelAnalytics\\Tests\\": "tests",
+            "Database\\Factories\\": "database/factories/",
+            "Database\\Seeders\\": "database/seeders/"
         }
     },
     "scripts": {
