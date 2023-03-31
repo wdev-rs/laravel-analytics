@@ -34,7 +34,7 @@ class PageViewRepository
             ->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(id) as count') )
             ->where('created_at', '>=', $date)
             ->groupBy('date')
-            ->orderByDesc('count')
+            ->orderBy('date')
             ->pluck('count', 'date');
     }
 
