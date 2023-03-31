@@ -28,6 +28,12 @@ php artisan vendor:publish --provider="WdevRs\LaravelAnalytics\LaravelAnalyticsS
 
 ## Usage
 
+Run migration
+
+```bash
+php artisan migrate
+```
+
 Add alias to middleware in `app/Http/Kernel.php`
 ```php
     protected $routeMiddleware = [
