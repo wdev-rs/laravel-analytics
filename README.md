@@ -14,10 +14,67 @@ You can install the package via composer:
 composer require wdev-rs/laravel-analytics
 ```
 
+Install the vue-chartjs integration
+
+```bash
+npm install vue-chartjs@^4.0.0 chart.js
+```
+
+Publish the vendor files by running
+
+```bash
+php artisan vendor:publish --provider="WdevRs\LaravelAnalytics\LaravelAnalyticsServiceProvider"
+```
+
 ## Usage
 
+Add alias to middleware in `app/Http/Kernel.php`
 ```php
-// Usage description here
+    protected $routeMiddleware = [
+        ...
+        'analytics' => \WdevRs\LaravelAnalytics\Http\Middleware\Analytics::class,
+        ...
+    ];        
+```
+
+Add the `analytics` middleware to the routes you'd like to track
+
+```php
+
+Route::middleware(['analytics'])->group(function () {
+    Route::get('/', [PagesController::class,'index'])->name('pages.home');
+});
+
+```
+
+### Admin
+
+Register the vue components to display analytics
+
+```js
+Vue.component('page-views-per-days', require('./vendor/laravel-analytics/components/PageViewsPerDays.vue').default);
+Vue.component('page-views-per-paths', require('./vendor/laravel-analytics/components/PageViewsPerPaths.vue').default);
+```
+
+Use the components in your dashboard or where you like :) 
+
+Pass the data from controller
+
+```php
+        $pageViewRepository = app(PageViewRepository::class);
+        $pageViewsPerDays = $pageViewRepository->getByDateGroupedByDays(Carbon::today()->subDays(28));
+        $pageViewsPerPaths = $pageViewRepository->getByDateGroupedByPath(Carbon::today()->subDays(28));
+
+        return view('admin.dashboard.index',
+            [
+                'pageViewsPerDays' => $pageViewsPerDays,
+                'pageViewsPerPaths' => $pageViewsPerPaths
+            ]);
+```
+
+```php
+<page-views-per-days :initial-data="{{json_encode($pageViewsPerDays)}}"/>
+<page-views-per-paths :initial-data="{{json_encode($pageViewsPerPaths)}}"/>
 ```
 
 ### Testing
