@@ -2,5 +2,11 @@
 VERSION 0  FIRST PUBLIC VERSION
 ===============================
 
+   Version 0.2 - Session id
+      03/04/2023 13:46  0.2.0  initial release
+         7e059fb #7 Add session id and show visitors
+         8666734 Update README.md
+         3bf51c5 Update README.md
+
    Version 0.1 - First public version
       31/03/2023 11:30  0.1.0  initial release
