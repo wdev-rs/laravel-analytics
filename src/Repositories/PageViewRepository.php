@@ -38,5 +38,15 @@ class PageViewRepository
             ->pluck('count', 'date');
     }
 
+    public function getVisitorsByDateGroupedByDays(Carbon $date): Collection
+    {
+        return PageView::query()
+            ->select(DB::raw('DATE(created_at) as date'), DB::raw('COUNT(DISTINCT session_id) as count') )
+            ->where('created_at', '>=', $date)
+            ->groupBy( 'date')
+            ->orderBy('date')
+            ->pluck('count', 'date');
+    }
+
 
 }

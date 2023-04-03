@@ -38,7 +38,7 @@ class LaravelAnalyticsTest extends TestCase
             return 'Test path';
         })->middleware([SubstituteBindings::class, Analytics::class]);
 
-        $pageView = PageView::query()->create([
+        $pageView = PageView::factory()->create([
             'path' => 'tp'
         ]);
 

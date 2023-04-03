@@ -41,14 +41,14 @@ ChartJS.register(
 )
 
 export default {
-    name: 'PageViewsPerDays',
+    name: 'VisitorsPerDays',
     components: { LineChartGenerator },
     props: {
         'initialData': Object,
         'baseUrl': String,
         chartId: {
             type: String,
-            default: 'bar-chart'
+            default: 'line-chart'
         },
         datasetIdKey: {
             type: String,
@@ -81,7 +81,7 @@ export default {
                 labels: Object.keys(this.initialData),
                 datasets: [
                     {
-                        label: 'Page views',
+                        label: 'Visitors',
                         backgroundColor: '#f87979',
                         data: Object.values(this.initialData)
                     }
@@ -94,7 +94,6 @@ export default {
         }
     },
     mounted() {
-        console.log('page views per days mounted!');
     },
 
     methods: {

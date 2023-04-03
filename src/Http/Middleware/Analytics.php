@@ -25,6 +25,7 @@ class Analytics
         try {
             /** @var PageView $pageView */
             $pageView = PageView::make([
+                'session_id' => session()->getId(),
                 'path' => $request->path(),
                 'user_agent' => $request->userAgent(),
                 'ip' => $request->ip(),

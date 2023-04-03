@@ -83,4 +83,41 @@ class PageViewRepositoryTest extends TestCase
         $this->assertEquals(10, $analyticsData[Carbon::today()->subDays(1)->toDateString()]);
         $this->assertEquals(5, $analyticsData[Carbon::today()->subDays(2)->toDateString()]);
     }
+
+    public function testItCanGetVisitorsByDateGrouppedByDays()
+    {
+        /** @var PageViewRepository $pageViewRepository */
+        $pageViewRepository =  app(PageViewRepository::class);
+
+        $this->assertNotNull($pageViewRepository);
+
+        PageView::factory()->count(10)->create(
+            [
+                'session_id' => 'session1',
+                'path' => 'test/1',
+                'created_at' => Carbon::today()->subDays(1)
+            ]
+        );
+
+        PageView::factory()->count(5)->create(
+            [
+                'session_id' => 'session2',
+                'path' => 'test/1',
+                'created_at' => Carbon::today()->subDays(2)
+            ]
+        );
+
+        PageView::factory()->count(5)->create(
+            [
+                'session_id' => 'session3',
+                'path' => 'test/4',
+                'created_at' => Carbon::today()->subDays(2)
+            ]
+        );
+
+        $analyticsData = $pageViewRepository->getVisitorsByDateGroupedByDays(Carbon::today()->subWeeks(4));
+        $this->assertCount(2, $analyticsData);
+        $this->assertEquals(1, $analyticsData[Carbon::today()->subDays(1)->toDateString()]);
+        $this->assertEquals(2, $analyticsData[Carbon::today()->subDays(2)->toDateString()]);
+    }
 }

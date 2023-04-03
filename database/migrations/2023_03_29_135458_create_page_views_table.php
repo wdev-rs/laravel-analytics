@@ -17,6 +17,7 @@ return new class() extends Migration
 
         Schema::create($tableName, function (Blueprint $table) {
             $table->id();
+            $table->string('session_id')->index();
             $table->string('path')->index();
             $table->string('user_agent')->nullable();
             $table->string('ip')->nullable();
