@@ -22,6 +22,7 @@ class PageViewFactory extends Factory
     public function definition()
     {
         return [
+            'session_id' => $this->faker->word,
             'path' => $this->faker->url
         ];
     }
