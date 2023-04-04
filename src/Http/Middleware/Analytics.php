@@ -5,6 +5,8 @@ namespace WdevRs\LaravelAnalytics\Http\Middleware;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Closure;
+use Illuminate\Support\Str;
+use Jaybizzle\CrawlerDetect\CrawlerDetect;
 use Throwable;
 use WdevRs\LaravelAnalytics\Models\PageView;
 
@@ -14,20 +16,33 @@ class Analytics
     {
         $response = $next($request);
 
-        if (!$request->isMethod('GET')) {
-            return $response;
-        }
-
-        if ($request->isJson()) {
-            return $response;
-        }
-
         try {
+            if (!$request->isMethod('GET')) {
+                return $response;
+            }
+
+            if ($request->isJson()) {
+                return $response;
+            }
+
+            $userAgent = $request->userAgent();
+
+            if (is_null($userAgent)) {
+                return $response;
+            }
+
+            /** @var CrawlerDetect $crawlerDetect */
+            $crawlerDetect = app(CrawlerDetect::class);
+
+            if ($crawlerDetect->isCrawler($userAgent)) {
+                return $response;
+            }
+
             /** @var PageView $pageView */
             $pageView = PageView::make([
                 'session_id' => session()->getId(),
                 'path' => $request->path(),
-                'user_agent' => $request->userAgent(),
+                'user_agent' => Str::substr($userAgent, 0, 255),
                 'ip' => $request->ip(),
                 'referer' => $request->headers->get('referer'),
             ]);
