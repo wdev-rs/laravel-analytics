@@ -67,4 +67,20 @@ class LaravelAnalyticsTest extends TestCase
             'page_model_id' => null
         ]);
     }
+
+    public function testItFiltersOutBotTraffic()
+    {
+        Route::get('test/path/{any}', function(int $any){
+            return 'Test path';
+        })->middleware([SubstituteBindings::class, Analytics::class]);
+
+        $this->get('test/path/1', ['User-Agent' => 'Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/111.0.5563.146 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)']);
+
+        $this->assertCount(0, PageView::all());
+        $this->assertDatabaseMissing(app(PageView::class)->getTable(), [
+            'path' => 'test/path/1',
+            'page_model_type' => null,
+            'page_model_id' => null
+        ]);
+    }
 }
