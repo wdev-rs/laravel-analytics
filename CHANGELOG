@@ -3,6 +3,9 @@ VERSION 0  FIRST PUBLIC VERSION
 ===============================
 
    Version 0.2 - Session id
+      04/04/2023 07:24  0.2.1  Filter out bot traffic
+         d4841e0 #6 Add totals to charts
+         00ff089 #6 Detect bot traffic
       03/04/2023 13:46  0.2.0  initial release
          7e059fb #7 Add session id and show visitors
          8666734 Update README.md
