@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="font-weight-bold">Visitors: {{chartData.datasets[0].data.reduce((a, b) => a + b, 0)}}</div>
+        <div><strong>Visitors: {{chartData.datasets[0].data.reduce((a, b) => a + b, 0)}}</strong></div>
         <div>
             <LineChartGenerator
                 :chart-options="chartOptions"
