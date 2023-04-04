@@ -1,5 +1,6 @@
 <template>
     <div>
+        <div class="font-weight-bold">Visitors: {{chartData.datasets[0].data.reduce((a, b) => a + b, 0)}}</div>
         <div>
             <LineChartGenerator
                 :chart-options="chartOptions"
@@ -89,7 +90,14 @@ export default {
             },
             chartOptions: {
                 responsive: true,
-                maintainAspectRatio: false
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        ticks: {
+                            precision: 0
+                        }
+                    }
+                }
             }
         }
     },

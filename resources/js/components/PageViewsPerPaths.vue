@@ -13,8 +13,13 @@
                     <td class="p-1 text-center">{{pageViews}}</td>
                 </tr>
             </tbody>
+            <tfoot>
+                <tr>
+                    <th>Total:</th>
+                    <th class="text-center">{{Object.values(initialData).reduce((a, b) => a + b, 0)}}</th>
+                </tr>
+            </tfoot>
         </table>
-<!--        <p v-for="(pageViews, path) in initialData">{{path}} : {{pageViews}}</p>-->
     </div>
 </template>
 
