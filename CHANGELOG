@@ -3,6 +3,13 @@ VERSION 0  FIRST PUBLIC VERSION
 ===============================
 
    Version 0.2 - Session id
+      24/10/2023 07:59  0.2.2  Add support for X-Forwarded-For proxy header
+         1f59c5d No windows in tests :)
+         7f31a61 Update main.yml
+         5fc0ff4 Activate gh actions
+         c4b80b3 #11 Add test
+         7e4b36f Use X-Forwarded-For for IP if present
+         22e99e0 Use tag instead of class
       04/04/2023 07:24  0.2.1  Filter out bot traffic
          d4841e0 #6 Add totals to charts
          00ff089 #6 Detect bot traffic
