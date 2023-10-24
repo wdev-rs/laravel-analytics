@@ -83,4 +83,40 @@ class LaravelAnalyticsTest extends TestCase
             'page_model_id' => null
         ]);
     }
+
+    public function testSavesIpWithoutProxy()
+    {
+        $request = Request::create('/test/path', 'GET');
+
+        $request->server->set('REMOTE_ADDR', '10.0.0.1');
+
+        (new Analytics())->handle($request, function ($req) {
+            $this->assertEquals('test/path', $req->path());
+            $this->assertEquals('GET', $req->method());
+        });
+
+        $this->assertCount(1, PageView::all());
+        $this->assertDatabaseHas(app(PageView::class)->getTable(), [
+            'ip'   => '10.0.0.1',
+            'path' => 'test/path',
+        ]);
+    }
+
+    public function testSavesIpWitProxy()
+    {
+        $request = Request::create('/test/path', 'GET');
+
+        $request->headers->set('X-Forwarded-For', '10.0.0.1');
+
+        (new Analytics())->handle($request, function ($req) {
+            $this->assertEquals('test/path', $req->path());
+            $this->assertEquals('GET', $req->method());
+        });
+
+        $this->assertCount(1, PageView::all());
+        $this->assertDatabaseHas(app(PageView::class)->getTable(), [
+            'ip'   => '10.0.0.1',
+            'path' => 'test/path',
+        ]);
+    }
 }

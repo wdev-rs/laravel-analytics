@@ -43,7 +43,7 @@ class Analytics
                 'session_id' => session()->getId(),
                 'path' => $request->path(),
                 'user_agent' => Str::substr($userAgent, 0, 255),
-                'ip' => $request->ip(),
+                'ip' => $request->headers->get('X-Forwarded-For') ? $request->headers->get('X-Forwarded-For') : $request->ip(),
                 'referer' => $request->headers->get('referer'),
             ]);
 
